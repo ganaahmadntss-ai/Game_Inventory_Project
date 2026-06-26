@@ -1,2 +1,1 @@
 Inventory = {}
-counter = 1

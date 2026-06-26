@@ -1,11 +1,11 @@
-from database import Inventory
+from app.database import Inventory
 
 def create_item(item):
-    global counter
-    Inventory[counter] = item
-    Inventory[counter]["id"] = counter
-    counter += 1
-    return Inventory[counter-1]
+    item_id = len(Inventory) + 1
+    Inventory[item_id] = item
+    Inventory[item_id]["id"] = item_id
+    return Inventory[item_id]
+
 
 def get_items():
     return Inventory
