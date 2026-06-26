@@ -1,0 +1,2 @@
+Inventory = {}
+counter = 1
