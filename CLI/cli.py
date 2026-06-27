@@ -1,7 +1,7 @@
 import requests
 import argparse
 
-Base_URL="http://localhost:8000"
+Base_URL="https://gameinventoryproject-production.up.railway.app"
 
 def add(args):
     data={
