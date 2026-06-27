@@ -11,7 +11,7 @@ view and delete tasks.
 Install requirements:
 pip install -r requirements.txt
 Start server:
-uvicorn backend.main:app --reload
+uvicorn app.main:app --reload
 
 ## CLI Commands
 Add Task:

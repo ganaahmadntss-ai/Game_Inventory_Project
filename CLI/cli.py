@@ -41,3 +41,62 @@ elif args.command=="list":
 
 elif args.command=="delete":
     delete(args)
+
+# EL Bouns
+import keyboard
+import os
+
+def add_item_cli():
+    name = input("Name: ")
+    category = input("Category: ")
+    quantity = int(input("Quantity: "))
+
+    data = {
+        "name": name,
+        "category": category,
+        "quantity": quantity}
+
+    r = requests.post(Base_URL + "/items",json=data)
+    print(r.json())
+    input("Press Enter...")
+
+def view_items_cli():
+    r = requests.get(Base_URL + "/items")
+    for item in r.json().values():
+        print(item)
+    input("Press Enter...")
+
+def delete_item_cli():
+    item_id = int(input("ID: "))
+
+    r = requests.delete(Base_URL + f"/items/{item_id}")
+    print(r.json())
+    input("Press Enter...")
+
+menu = ["Add Item","View Items","Delete Item","Exit"]
+selected = 0
+
+while True:
+    os.system("cls")
+    print("=== Inventory CLI ===\n")
+    for i, item in enumerate(menu):
+        if i == selected:
+            print("> " + item)
+        else:
+            print("  " + item)
+    key = keyboard.read_key()
+    if key == "down":
+        selected = (selected + 1) % len(menu)
+    elif key == "up":
+        selected = (selected - 1) % len(menu)
+    elif key == "enter":
+
+        if selected == 0:
+            add_item_cli()
+        elif selected == 1:
+            view_items_cli()
+        elif selected == 2:
+            delete_item_cli()
+        elif selected == 3:
+            print("Bye Bye")
+            break
