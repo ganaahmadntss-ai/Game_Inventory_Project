@@ -1,5 +1,5 @@
 import argparse
-import keyboard
+import readchar
 import os
 from commands import (add,list_items,delete,add_item_cli,view_items_cli,delete_item_cli)
 
@@ -23,21 +23,19 @@ elif args.command=="list":
 elif args.command=="delete":
     delete(args)
 
-
-
 menu = ["Add Item","View Items","Delete Item","Exit"]
 
 selected = 0
 
 while True:
-    os.system("cls")
+    os.system("clear" if os.name == "posix" else "cls")
     for i,item in enumerate(menu):
         if i == selected:
             print("> " + item)
         else:
             print("  " + item)
-    key = keyboard.read_key()
-    if key == "down":
+    key = readchar.read_key()
+    if key == readchar.key.DOWN::
         selected = (selected + 1) % len(menu)
     elif key == "up":
         selected = (selected - 1) % len(menu)
