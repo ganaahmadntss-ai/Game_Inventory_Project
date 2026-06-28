@@ -1,0 +1,50 @@
+import requests
+
+Base_URL="https://gameinventoryproject-production.up.railway.app"
+
+def add(args):
+    data={
+        "name":args.name,
+        "category":args.category,
+        "quantity":args.quantity}
+
+    r=requests.post(Base_URL+"/items",json=data)
+    print(r.json())
+
+def list_items(args):
+    r=requests.get(Base_URL+"/items")
+
+    for item in r.json().values():
+        print(item)
+
+def delete(args):
+    r=requests.delete(Base_URL+f"/items/{args.id}")
+    print(r.json())
+
+
+def add_item_cli():
+    name = input("Name: ")
+    category = input("Category: ")
+    quantity = int(input("Quantity: "))
+
+    data = {
+        "name": name,
+        "category": category,
+        "quantity": quantity}
+
+    r = requests.post(Base_URL + "/items",json=data)
+    print(r.json())
+    input("Press Enter...")
+
+def view_items_cli():
+    r = requests.get(Base_URL + "/items")
+    for item in r.json().values():
+        print(item)
+    input("Press Enter...")
+
+def delete_item_cli():
+    item_id = int(input("ID: "))
+
+    r = requests.delete(Base_URL + f"/items/{item_id}")
+    print(r.json())
+    input("Press Enter...")
