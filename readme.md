@@ -1,5 +1,25 @@
 # Game Inventory Project 
 A simple game inventory management system built with FastAPI and a CLI client.
+# Run Backend
+uvicorn app.main:app --reload
+
+## Endpoints
+GET /items
+GET /items/{id}
+POST /items
+PUT /items/{id}
+DELETE /items/{id}
+
+
+## CLI
+Add:
+python cli/cli.py add name category quantity
+
+List:
+python cli/cli.py list
+
+Delete:
+python cli/cli.py delete id
 
 ## Features
 - FastAPI Backend
@@ -12,6 +32,7 @@ A simple game inventory management system built with FastAPI and a CLI client.
 
 
 ## Installation
+
 ### 1. Clone the repository
 ```bash
 git clone <repository-url>
