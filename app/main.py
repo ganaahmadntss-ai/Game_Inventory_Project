@@ -1,35 +1,27 @@
 from fastapi import FastAPI, HTTPException
 from app.schemas import ItemCreate
-from app import model
-
+from app import schemas, crud
 
 app = FastAPI(title="Game Inventory API", version="1.0.0")
 
 @app.post("/items")
-def add_item(item: ItemCreate):
-    return model.create_item(item.model_dump())
+def add_item(item: schemas.ItemCreate):
+    return crud.create_item(item)
 
 @app.get("/items")
 def get_all():
-    return model.get_items()
+    return crud.get_items()
 
 @app.get("/items/{item_id}")
 def get_one(item_id: int):
-    items = model.get_items()
-    if isinstance(items, list):
-        for item in items:
-            if item["id"] == item_id:
-                return item
-
-    elif item_id in items:
-        return items[item_id]
-
-    raise HTTPException(status_code=404,detail="Item not found")
+    item = crud.get_item(item_id)
+    if not item:
+        raise HTTPException(status_code=404,detail="Item not found")
+    return item[0]
 
 @app.delete("/items/{item_id}")
 def delete(item_id: int):
-    deleted = model.delete_item(item_id)
+    deleted = crud.delete_item(item_id)
     if not deleted:
         raise HTTPException(status_code=404,detail="Item not found")
-
     return {"message": "deleted"}
